@@ -164,8 +164,18 @@ function makeWord(lettersObject) {
  *    sellTickets([25, 25, 50]) => true
  *    sellTickets([25, 100]) => false (The seller does not have enough money to give change.)
  */
-function sellTickets(/* queue */) {
-  throw new Error('Not implemented');
+function sellTickets(queue) {
+  // throw new Error('Not implemented');
+  let cashier = 0;
+
+  for (let i = 0; i < queue.length; i += 1) {
+    if (queue[i] - 25 <= cashier) {
+      cashier += queue[i];
+    } else {
+      return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -254,8 +264,11 @@ function fromJSON(proto, json) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  throw new Error('Not implemented');
+function sortCitiesArray(arr) {
+  // throw new Error('Not implemented');
+  return arr
+    .sort((a, b) => a.city.localeCompare(b.city))
+    .sort((a, b) => a.country.localeCompare(b.country));
 }
 
 /**
@@ -288,8 +301,17 @@ function sortCitiesArray(/* arr */) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  // throw new Error('Not implemented');
+  const map = new Map();
+  return array.reduce((acc, item) => {
+    if (acc.has(keySelector(item))) {
+      acc.get(keySelector(item)).push(valueSelector(item));
+    } else {
+      acc.set(keySelector(item), [valueSelector(item)]);
+    }
+    return acc;
+  }, map);
 }
 
 /**
